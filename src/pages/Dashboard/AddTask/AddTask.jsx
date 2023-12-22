@@ -17,7 +17,7 @@ const AddTask = () => {
 
         const newAssignment = { title, desc, pLevel, deadline, email }
         // console.log(newAssignment);
-        fetch(`http://localhost:5000/task`, {
+        fetch(`https://taskia-server.vercel.app/task`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

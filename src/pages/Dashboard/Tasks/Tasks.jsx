@@ -6,7 +6,7 @@ const Tasks = () => {
     const { user } = useContext(AuthContext);
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
-        axios(`http://localhost:5000/task/${user?.email}`)
+        axios(`https://taskia-server.vercel.app/task/${user?.email}`)
             .then(res => setTasks(res.data))
     }, [user?.email])
     return (
