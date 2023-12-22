@@ -10,6 +10,7 @@ import Tasks from "../pages/Dashboard/Tasks/Tasks";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import Fqa from "../pages/FQA/Fqa";
 import Features from "../pages/Features/Features";
+import AddTask from "../pages/Dashboard/AddTask/AddTask";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path: 'tasks',
                 element: <Tasks></Tasks>
+            },
+            {
+                path: 'addTask',
+                element: <AddTask></AddTask>
             }
         ]
     },

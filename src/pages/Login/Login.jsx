@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import image from '../../assets/images/img.png'
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -46,9 +46,9 @@ const Login = () => {
     const handleGithubSignIn = () => {
         providerLogin(githubProvider)
             .then(result => {
-                const loggedUser = result.user;
-                console.log(loggedUser);
-                SpeechSynthesisUtterance(loggedUser)
+                console.log(result.user);
+                toast.success('Successfully Sign In')
+                navigate(location?.state ? location.state : '/dashboard/userhome');
             })
             .catch(error => {
                 console.log(error)

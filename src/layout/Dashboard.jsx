@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import { HiHome, HiListBullet, HiOutlineArrowLeftCircle } from "react-icons/hi2";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { HiHome, HiListBullet, HiMiniPlusCircle, HiOutlineArrowLeftCircle } from "react-icons/hi2";
 
 const Dashboard = () => {
     const [open, setOpen] = useState(true);
 
     return (
-        <div>
-            <div className="flex justify-between">
+        <div className="flex">
+            <div >
                 <div
                     className={` ${open ? "w-52" : "w-20 "
                         } bg-gradient-to-r from-blue-500 to-blue-400 min-h-screen p-5  pt-8 relative duration-300`}
@@ -28,20 +28,24 @@ const Dashboard = () => {
                                         } `}>
                             <NavLink to="/dashboard/userhome" className=' flex items-center gap-2'>
 
-                            <HiHome></HiHome><span className={`${!open && "hidden"} origin-left duration-200`}>Dashboard</span></NavLink>
+                                <HiHome></HiHome><span className={`${!open && "hidden"} origin-left duration-200`}>Dashboard</span></NavLink>
                         </li>
                         <li>
                             <NavLink to="/dashboard/tasks" className=' flex items-center gap-2'>
                                 <HiListBullet></HiListBullet>
                                 <span className={`${!open && "hidden"} origin-left duration-200`}>Tasks</span></NavLink>
                         </li>
-                       
+
                     </ul>
                 </div>
 
             </div>
-            <div className="flex-1 p-8">
-                {/* <div className="p-5 bg-black">
+            <div className="flex-1 p-2">
+                <div className="p-2 flex items-center gap-2 justify-end border-b">
+                    <Link to='/dashboard/addTask' className="flex items-center">
+                        <HiMiniPlusCircle className="text-2xl" />
+                        <p>Add Task</p>
+                    </Link>
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
@@ -59,7 +63,7 @@ const Dashboard = () => {
                             <li><a>Logout</a></li>
                         </ul>
                     </div>
-                </div> */}
+                </div>
 
                 <Outlet></Outlet>
             </div>
