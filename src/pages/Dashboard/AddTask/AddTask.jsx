@@ -1,23 +1,23 @@
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const AddTask = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const handleAddTask = event => {
         event.preventDefault();
         const form = event.target;
         const title = form.title.value;
         const desc = form.desc.value;
-        const marks = form.marks.value;
-        const photo = form.photo.value;
-        const dLevel = form.dLevel.value;
-        const dateValue = form.dateValue.value;
+        const pLevel = form.pLevel.value;
+        const deadline = form.deadline.value;
         const email = user?.email;
 
-        const newAssignment = { title, desc, marks, photo, dLevel, dateValue, email }
+        const newAssignment = { title, desc, pLevel, deadline, email }
         // console.log(newAssignment);
-        fetch(`https://studynest-server.vercel.app/assignments`, {
+        fetch(`http://localhost:5000/task`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -28,7 +28,8 @@ const AddTask = () => {
             .then(data => {
                 console.log(data);
                 if (data.insertedId) {
-                    toast.success('Assignment Created Successfully')
+                    toast.success('Task Added Successfully')
+                    navigate("/dashboard/tasks")
                 }
                 form.reset();
             })
@@ -64,7 +65,7 @@ const AddTask = () => {
                             <span className="label-text">Deadlines</span>
                         </label>
                         <label className="input-group">
-                            <input type="number" name="deadlines" placeholder="Deadline" className="input input-bordered w-full" required />
+                            <input type="number" name="deadline" placeholder="Deadline" className="input input-bordered w-full" required />
                         </label>
                     </div>
                     <div className="form-control md:w-1/2">
@@ -72,7 +73,7 @@ const AddTask = () => {
                             <span className="label-text">Priority Level</span>
                         </label>
                         <label className="input-group">
-                            <select className="select select-bordered w-full" name='dLevel' required>
+                            <select className="select select-bordered w-full" name='pLevel' required>
                                 <option value="Low">Low</option>
                                 <option value="Moderate">Moderate</option>
                                 <option value="High">High</option>
