@@ -1,10 +1,21 @@
-import { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { HiHome, HiListBullet, HiMiniPlusCircle, HiOutlineArrowLeftCircle } from "react-icons/hi2";
+import { AuthContext } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
     const [open, setOpen] = useState(true);
-
+    const navigate = useNavigate();
+    const { logOut } = useContext(AuthContext);
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                toast.success('Successfully Log Out');
+                navigate("/");
+            })
+            .catch()
+    }
     return (
         <div className="flex">
             <div >
@@ -60,7 +71,7 @@ const Dashboard = () => {
                                 </a>
                             </li>
                             <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li onClick={handleSignOut}><a>Logout</a></li>
                         </ul>
                     </div>
                 </div>
