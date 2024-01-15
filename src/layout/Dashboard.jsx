@@ -7,12 +7,12 @@ import toast from "react-hot-toast";
 const Dashboard = () => {
     const [open, setOpen] = useState(true);
     const navigate = useNavigate();
-    const { logOut } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const handleSignOut = () => {
         logOut()
             .then(() => {
                 toast.success('Successfully Log Out');
-                navigate("/");
+                navigate("/login");
             })
             .catch()
     }
@@ -21,7 +21,7 @@ const Dashboard = () => {
             <div >
                 <div
                     className={` ${open ? "w-52" : "w-20 "
-                        } bg-gradient-to-r from-blue-500 to-blue-400 min-h-screen p-5  pt-8 relative duration-300`}
+                        } bg-gradient-to-r from-blue-500 to-blue-400 h-[500vh] p-5  pt-8 relative duration-300`}
                 >
                     <HiOutlineArrowLeftCircle className={`absolute cursor-pointer -right-3 top-9 text-3xl rounded-full  ${!open && "rotate-180"}`}
                         onClick={() => setOpen(!open)} />
@@ -60,17 +60,13 @@ const Dashboard = () => {
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                <img alt="Tailwind CSS Navbar component" src={user?.photoURL ? user?.photoURL : 'https://i.ibb.co/X2xMzwL/defultuser.png'} />
                             </div>
                         </div>
                         <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                            <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                            </li>
-                            <li><a>Settings</a></li>
+                            <li><div>
+                                <p>{user?.displayName ? user?.displayName : "User"}</p>
+                            </div></li>
                             <li onClick={handleSignOut}><a>Logout</a></li>
                         </ul>
                     </div>

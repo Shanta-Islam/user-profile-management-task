@@ -1,26 +1,19 @@
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import Home from "../pages/Home/Home/Home";
-import Main from "../layout/Main";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Dashboard from "../layout/Dashboard";
 import Tasks from "../pages/Dashboard/Tasks/Tasks";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
-import Fqa from "../pages/FQA/Fqa";
-import Features from "../pages/Features/Features";
 import AddTask from "../pages/Dashboard/AddTask/AddTask";
+import UpdateTask from "../pages/Dashboard/UpdateTask/UpdateTask";
 
 export const router = createBrowserRouter([
-    {
+{
         path: "/",
-        element: <Main></Main>,
+        element: <Login></Login>,
         children: [
-            {
-                path: "/",
-                element: <Home></Home>
-            },
             {
                 path: "/login",
                 element: <Login></Login>
@@ -29,18 +22,6 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
-            {
-                path: "/fqa",
-                element: <Fqa></Fqa>
-            },
-            {
-                path: "/features",
-                element: <Features></Features>
-            }
-
-
-
-
         ]
     },
     {
@@ -58,6 +39,11 @@ export const router = createBrowserRouter([
             {
                 path: 'addTask',
                 element: <AddTask></AddTask>
+            },
+            {
+                path: 'updateTask/:id',
+                element: <UpdateTask></UpdateTask>,
+                loader: ({params})=> fetch(`http://localhost:5000/update-task/${params.id}`)
             }
         ]
     },
