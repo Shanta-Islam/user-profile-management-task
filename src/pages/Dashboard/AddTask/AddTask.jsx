@@ -17,7 +17,7 @@ const AddTask = () => {
         const email = user?.email;
 
         const newTask = { title, desc, dateValue, email }
-        fetch(`http://localhost:5000/task`, {
+        fetch(` https://taskia-server.vercel.app/task`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -29,7 +29,7 @@ const AddTask = () => {
                 console.log(data);
                 if (data.insertedId) {
                     toast.success('Task Added Successfully')
-                    navigate("/dashboard/tasks")
+                    navigate("/dashboard/mytasks")
                 }
                 form.reset();
             })

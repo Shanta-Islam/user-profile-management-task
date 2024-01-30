@@ -10,7 +10,7 @@ const UpdateTask = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const task = useLoaderData();
-    // console.log(task)
+    console.log(task)
     const { _id, title, desc } = task;
     const handleUpdateTask = event => {
         event.preventDefault();
@@ -21,7 +21,7 @@ const UpdateTask = () => {
         const email = user?.email;
 
         const newTask = { title, desc, dateValue, email }
-        fetch(`http://localhost:5000/update-task/${_id}`, {
+        fetch(` https://taskia-server.vercel.app/update-task/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
