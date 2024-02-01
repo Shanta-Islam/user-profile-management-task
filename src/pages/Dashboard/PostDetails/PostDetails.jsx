@@ -63,23 +63,23 @@ const PostDetails = () => {
 
     }
     return (
-        <div className='container mx-auto md:px-5 px-3 mb-5 py-28'>
+        <div className='container mx-auto'>
             <div className="card w-3/4 bg-base-100 shadow-xl mx-auto">
                 <div className="card-body">
                     <h2 className="card-title">{singleTask.title}</h2>
                     <p className='text-lg'><span className='font-medium'>About this task:</span> {singleTask.desc}</p>
                     <div className="card-actions justify-end">
-                        <button className="btn" onClick={() => window.review_modal.showModal()}>Write your review</button>
+                        <button className="btn"  onClick={()=>document.getElementById('my_modal_1').showModal()}>Write your comment</button>
                     </div>
                     <div className={!(singleTask.length <= 0) ? 'hidden' : 'block'}>
-                        <p className='text-2xl font-semibold text-gray-500 text-center mt-12 mb-12'>No Reviews Yet Added</p>
+                        <p className='text-2xl font-semibold text-gray-500 text-center mt-12 mb-12'>No Comments Yet Added</p>
                     </div>
                     {comments.map(review => <CommentsView key={review._id} review={review} setLoading={setLoading}></CommentsView>)}
                 </div>
 
             </div>
             <>
-                <dialog id="review_modal" type="checkbox" className="modal modal-bottom sm:modal-middle">
+                <dialog id="my_modal_1" type="checkbox" className="modal modal-bottom sm:modal-middle">
                     <form method="dialog" className="modal-box" onSubmit={handleSubmitReview}>
                         <div className="form-control">
                             <label className="label">
@@ -95,13 +95,13 @@ const PostDetails = () => {
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Your Review</span>
+                                <span className="label-text">Your Comment</span>
                             </label>
-                            <textarea name="reviewmsg" className="textarea textarea-bordered h-24 w-full" placeholder="Write Your Review" required></textarea>
+                            <textarea name="reviewmsg" className="textarea textarea-bordered h-24 w-full" placeholder="Write Your Comment" required></textarea>
                             <input type="text" placeholder="photo" name="userphoto" className="input input-bordered hidden" value={user?.photoURL ? user?.photoURL : 'https://i.ibb.co/X2xMzwL/defultuser.png'} />
                         </div>
                         <div className="modal-action" htmlFor="review_modal">
-                            <button className="btn">Submit Review</button>
+                            <button className="btn">Submit Comment</button>
                         </div>
                     </form>
                 </dialog>

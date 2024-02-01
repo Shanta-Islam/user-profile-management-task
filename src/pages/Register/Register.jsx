@@ -71,6 +71,7 @@ const Register = () => {
                     <img src={image} alt="" width={700} />
                 </div>
                 <div className="flex-shrink-0 w-full max-w-lg shadow-xl p-5">
+                    <Link to='/'><p className="text-3xl text-center">Taskia</p></Link>
                     <h2 className="text-2xl text-center">Please Register</h2>
                     <form onSubmit={handleRegister} className="mx-auto card-body">
                         <div className="form-control">

@@ -33,7 +33,7 @@ const UpdateTask = () => {
                 console.log(data);
                 if (data.modifiedCount > 0) {
                     toast.success('Task Updated Successfully')
-                    navigate("/dashboard/tasks")
+                    navigate("/dashboard/mytasks")
                 }
 
 

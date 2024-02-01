@@ -1,4 +1,4 @@
-
+import image from '../../assets/images/dashboard.png';
 
 const Community = () => {
     return (
@@ -9,7 +9,7 @@ const Community = () => {
                     <p className="max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl ">Connect with a strong community and work collaborate to each other task.</p>
                 </div>
                 <div className="mr-auto lg:mt-0 lg:col-span-7 lg:flex hidden relative lg:visible">
-
+                    <img src={image} alt="" />
                 </div>
             </div>
         </div >

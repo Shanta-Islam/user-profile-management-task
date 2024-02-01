@@ -8,7 +8,7 @@ import { FaBell } from "react-icons/fa6";
 const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [open, setOpen] = useState(true);
-    const [comments, setComments] = useState([]);
+    const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
     const { user, logOut } = useContext(AuthContext);
     const handleSignOut = () => {
@@ -20,17 +20,17 @@ const Dashboard = () => {
             .catch()
     }
     useEffect(() => {
-        const url = ` https://taskia-server.vercel.app/tasks-comments`;
+        const url = ` https://taskia-server.vercel.app/task/${user?.email}`;
         fetch(url)
             .then((response) => response.json())
             .then((actualData) => {
-                setComments(actualData);
+                setTasks(actualData);
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err)
             });
-    }, [loading]);
+    }, [loading, user?.email]);
     return (
         <div className="flex">
             <div className={` ${open ? "w-52" : "w-24 "} bg-gradient-to-r from-[#5971DC] to-[#546EE5] min-h-screen p-5  pt-8 relative duration-300`}>
@@ -67,7 +67,7 @@ const Dashboard = () => {
                         <p className="text-white">Add Task</p>
                     </Link>
                     <div className="indicator m-2">
-                        <span className="indicator-item badge badge-neutral -mt-2">{comments.length}</span>
+                        <span className="indicator-item badge badge-neutral -mt-2">{tasks.length}</span>
                         <FaBell className="text-blue-500 cursor-pointer"></FaBell>
                     </div>
 

@@ -1,17 +1,19 @@
 
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 import image from '../../assets/images/img.png'
 import { AuthContext } from "../../context/AuthProvider";
 
+
 const Login = () => {
 
-    const { signIn, providerLogin } = useContext(AuthContext);
+    const { signIn, providerLogin, passwordReset } = useContext(AuthContext);
     const googleProvider = new GoogleAuthProvider();
     const location = useLocation();
     const navigate = useNavigate();
+    const emailRef = useRef(null);
     const handleLogin = e => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
@@ -42,7 +44,27 @@ const Login = () => {
             .catch(error => console.log(error));
     }
 
+    const handleForgetPassword = () => {
+        const email = emailRef.current.value;
+        if (!email) {
+            console.log('pelase provide an email', emailRef.current.value)
+            return;
+        }
+        else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            console.log('please write a valid email')
+            return;
+        }
 
+        // send validation email
+        passwordReset(email)
+            .then(() => {
+                alert('please check your email')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+    }
     return (
         <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row lg:gap-40">
@@ -50,13 +72,14 @@ const Login = () => {
                     <img src={image} alt="" width={700} />
                 </div>
                 <div className="flex-shrink-0 w-full max-w-lg shadow-xl p-5">
+                    <Link to='/'><p className="text-3xl text-center">Taskia</p></Link>
                     <h2 className="text-2xl text-center">Please Login</h2>
                     <form onSubmit={handleLogin} className="mx-auto card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" name="email" placeholder="email" className="input input-bordered" required />
+                            <input type="email" ref={emailRef} name="email" placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -64,7 +87,7 @@ const Login = () => {
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <a onClick={handleForgetPassword} href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
                         <div className="form-control mt-6">

@@ -12,6 +12,8 @@ import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import MyTasks from "../pages/Dashboard/MyTasks/MyTasks";
 import PostDetails from "../pages/Dashboard/PostDetails/PostDetails";
+import Features from "../pages/Features/Features";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
 {
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
+            {
+                path: '/features',
+                element: <Features></Features>
+            }
         ]
     },
     {
@@ -38,28 +44,28 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'userhome',
-                element: <UserHome></UserHome>,
+                element: <PrivateRoute><UserHome></UserHome></PrivateRoute>,
             },
             {
                 path: 'tasks',
-                element: <Tasks></Tasks>
+                element: <PrivateRoute><Tasks></Tasks></PrivateRoute>
             },
             {
                 path: 'mytasks',
-                element: <MyTasks></MyTasks>
+                element: <PrivateRoute><MyTasks></MyTasks></PrivateRoute>
             },
             {
                 path: 'addTask',
-                element: <AddTask></AddTask>
+                element: <PrivateRoute><AddTask></AddTask></PrivateRoute>
             },
             {
                 path: 'updateTask/:id',
-                element: <UpdateTask></UpdateTask>,
+                element: <PrivateRoute> <UpdateTask></UpdateTask></PrivateRoute>,
                 loader: ({params})=> fetch(` https://taskia-server.vercel.app/singleTask/${params.id}`)
             },
             {
                 path: 'postComments/:id',
-                element: <PostDetails></PostDetails>,
+                element: <PrivateRoute><PostDetails></PostDetails></PrivateRoute>,
                 loader: ({params})=> fetch(` https://taskia-server.vercel.app/singleTask/${params.id}`)
             }
         ]
