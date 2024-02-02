@@ -6,7 +6,7 @@ import Register from "../pages/Register/Register";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
-import ResetPassword from "../pages/ResetPassword/ResetPassword";
+
 
 export const router = createBrowserRouter([
 {
@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
+                element: <Login></Login>
+            },
+            {
+                path: "/home",
                 element: <Home></Home>
             },
             {
@@ -29,11 +33,6 @@ export const router = createBrowserRouter([
                 path: "/profile",
                 element: <Profile></Profile>
             },
-            {
-                path: '/resetPassword',
-                element: <ResetPassword></ResetPassword>
-
-            }
         ]
     },
 

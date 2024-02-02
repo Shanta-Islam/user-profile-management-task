@@ -15,6 +15,8 @@ const Register = () => {
         const photo = form.get("photo");
         const email = form.get("email");
         const password = form.get("password");
+        const rePassword = form.get("repassword");
+        
         if (password.length < 6) {
             toast.error('Password should be at least 6 characters or longer')
             return;
@@ -27,7 +29,9 @@ const Register = () => {
             toast.error('Password should be at least one special character')
             return;
         }
-        console.log(name);
+        else if (password !== rePassword) {
+            toast.error("Your Password Doesn't Match!")
+        }
         createUser(email, password)
             .then(result => {
                 console.log(result.user);
@@ -94,6 +98,12 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Repeat Password</span>
+                            </label>
+                            <input type="password" name="repassword" placeholder="password" className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn">Register</button>

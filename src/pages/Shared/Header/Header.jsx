@@ -53,7 +53,7 @@ const Header = () => {
                                         <li><div>
                                             <p>{user?.displayName ? user?.displayName : "User"}</p>
                                         </div></li>
-                                        <li><NavLink to='/dashboard/userhome'>Dashboard</NavLink></li>
+                                        <li><NavLink to='/profile'>Profile</NavLink></li>
                                         <li onClick={handleSignOut}><a>Logout</a></li>
                                     </ul>
                                 </div>
