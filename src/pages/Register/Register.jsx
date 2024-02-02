@@ -4,12 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import image from '../../assets/images/img.png'
 import { AuthContext } from "../../context/AuthProvider";
-import { GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
-    const { providerLogin, createUser, updateUserProfile, setLoading } = useContext(AuthContext);
+    const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
-    const googleProvider = new GoogleAuthProvider();
     const handleRegister = e => {
         e.preventDefault();
         const form = new FormData(e.currentTarget);
@@ -71,7 +69,6 @@ const Register = () => {
                     <img src={image} alt="" width={700} />
                 </div>
                 <div className="flex-shrink-0 w-full max-w-lg shadow-xl p-5">
-                    <Link to='/'><p className="text-3xl text-center">Taskia</p></Link>
                     <h2 className="text-2xl text-center">Please Register</h2>
                     <form onSubmit={handleRegister} className="mx-auto card-body">
                         <div className="form-control">
@@ -103,14 +100,7 @@ const Register = () => {
                         </div>
                     </form>
                     <p className="text-center mt-4">Already have an account ? <Link to="/login">Login</Link></p>
-                    {/* <div>
-                        <button onClick={handleGoogleSignIn} className='flex justify-center items-center bg-indigo-500 hover:bg-indigo-600 font-semibold text-white p-2 w-2/4 mx-auto rounded-lg mt-5 btn'>
-                            <svg className='w-5 mr-2' fill='white' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                                <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
-                            </svg>
-                            <span>Signup with Google</span>
-                        </button>
-                    </div> */}
+                    <Link to='/'><p className="text-3xl text-center">Logo</p></Link>
                     <Toaster />
                 </div>
             </div>

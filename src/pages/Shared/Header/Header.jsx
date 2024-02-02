@@ -18,8 +18,10 @@ const Header = () => {
     const links = <>
         <li><NavLink to="/" className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? " hover:text-black focus:text-black text-black px-5 py-2 text-md rounded bg-transparent underline" : " "}>Home</NavLink></li>
-        <li><NavLink to="/features" className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? " hover:text-black focus:text-black text-black px-5 py-2 text-md rounded bg-transparent underline" : " "}>Features</NavLink></li>
+        <li><NavLink to="/login" className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-black hover:text-black focus:text-black bg-transparent underline" : ""}>Login</NavLink></li>
+        <li><NavLink to="/register" className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-black hover:text-black focus:text-black bg-transparent underline" : ""}>Register</NavLink></li>
     </>
 
 
@@ -32,15 +34,9 @@ const Header = () => {
                     </label>
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52">
                         {links}
-
                     </ul>
                 </div>
-                <Link to='/'><a className="normal-case flex gap-2 text-xl lg:text-2xl font-medium text-black">Taskia</a></Link>
-            </div>
-            <div className="navbar-center hidden xl:flex">
-                <ul className="menu menu-horizontal px-1">
-                    {links}
-                </ul>
+                <Link to='/'><a className="normal-case flex gap-2 text-xl lg:text-2xl font-medium text-black">Logo</a></Link>
             </div>
             <div className="navbar-end lg:flex items-center">
                 {
@@ -64,11 +60,8 @@ const Header = () => {
                             </li>
                         </ul>
                         :
-                        <ul className="menu menu-horizontal px-1">
-                            <li><NavLink to="/login" className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "text-black hover:text-black focus:text-black bg-transparent underline" : ""}>Login</NavLink></li>
-                            <li><NavLink to="/register" className={({ isActive, isPending }) =>
-                                isPending ? "pending" : isActive ? "text-black hover:text-black focus:text-black bg-transparent underline" : ""}>Register</NavLink></li>
+                        <ul className="menu menu-horizontal px-1 xl:flex hidden">
+                            {links}
                         </ul>
 
                 }

@@ -1,11 +1,12 @@
 
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword, updateProfile } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 
-export const AuthContext = createContext(null); 
+export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 
@@ -14,7 +15,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const providerLogin = (provider) => {
-        setLoading(true); 
+        setLoading(true);
         return signInWithPopup(auth, provider);
     }
     const updateUserProfile = (profile) => {
@@ -25,9 +26,12 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
-    const passwordReset = (email) => {
-        setLoading(true); 
-        return sendPasswordResetEmail(auth, email);
+    const verifyMail = () => {
+        return sendEmailVerification(auth.currentUser)
+    }
+
+    const resetPassword = (newPassword) => {
+        return updatePassword(user, newPassword)
     }
     const signIn = (email, password) => {
         setLoading(true);
@@ -35,11 +39,22 @@ const AuthProvider = ({ children }) => {
     }
 
     const logOut = () => {
-        setLoading(true); 
+        setLoading(true);
         return signOut(auth);
     }
 
-    useEffect(() => { 
+    const errorMsgToast = (error) => {
+        const onlyErrMsg = error.message.slice(22, error.message.length - 2);
+        const processErrMsg = onlyErrMsg.split('-');
+        for (let i = 0; i < processErrMsg.length; i++) {
+            processErrMsg[i] = processErrMsg[i].charAt(0).toUpperCase() + processErrMsg[i].slice(1);
+
+        }
+        const finalMsg = processErrMsg.join(" ");
+        toast.error(finalMsg);
+    }
+
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
             if (currentUser) {
@@ -51,7 +66,7 @@ const AuthProvider = ({ children }) => {
                             localStorage.setItem('access-token', res.data.token);
                             setLoading(false);
                         }
-                    }) 
+                    })
             }
             else {
                 // TODO: remove token (if token stored in the client side: Local storage, caching, in memory)
@@ -66,7 +81,7 @@ const AuthProvider = ({ children }) => {
     }, [])
 
 
-    const authInfo = { 
+    const authInfo = {
         user,
         loading,
         setLoading,
@@ -75,7 +90,9 @@ const AuthProvider = ({ children }) => {
         createUser,
         signIn,
         logOut,
-        passwordReset
+        verifyMail,
+        resetPassword,
+        errorMsgToast
     }
 
     return (
